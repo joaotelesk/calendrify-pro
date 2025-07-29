@@ -1,13 +1,44 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { LoginPage } from "@/components/LoginPage";
+import { DashboardLayout } from "@/components/DashboardLayout";
+import { AdminDashboard } from "@/components/AdminDashboard";
+import { TeacherDashboard } from "@/components/TeacherDashboard";
+import { StudentDashboard } from "@/components/StudentDashboard";
+
+type UserType = 'admin' | 'teacher' | 'student' | null;
 
 const Index = () => {
+  const [userType, setUserType] = useState<UserType>(null);
+
+  const handleLogin = (type: 'admin' | 'teacher' | 'student') => {
+    setUserType(type);
+  };
+
+  const handleLogout = () => {
+    setUserType(null);
+  };
+
+  if (!userType) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
+
+  const renderDashboard = () => {
+    switch (userType) {
+      case 'admin':
+        return <AdminDashboard />;
+      case 'teacher':
+        return <TeacherDashboard />;
+      case 'student':
+        return <StudentDashboard />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <DashboardLayout userType={userType} onLogout={handleLogout}>
+      {renderDashboard()}
+    </DashboardLayout>
   );
 };
 
