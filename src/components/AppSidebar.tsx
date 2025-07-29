@@ -1,36 +1,35 @@
-import { NavLink, useLocation } from "react-router-dom";
 import {
+  BookOpen,
+  Building,
   Calendar,
-  Users,
+  Clock,
+  CreditCard,
+  LogOut,
   MapPin,
   Settings,
-  CreditCard,
-  BookOpen,
-  LogOut,
   User,
-  Clock,
-  Building
+  Users,
 } from "lucide-react";
+import { NavLink, useLocation } from "react-router-dom";
 
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
   useSidebar,
-  SidebarHeader,
-  SidebarFooter,
 } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface AppSidebarProps {
-  userType: 'admin' | 'teacher' | 'student';
+  userType: "admin" | "teacher" | "student";
   onLogout: () => void;
 }
 
@@ -61,35 +60,43 @@ export function AppSidebar({ userType, onLogout }: AppSidebarProps) {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const items = userType === 'admin' ? adminItems : 
-                userType === 'teacher' ? teacherItems : 
-                studentItems;
+  const items =
+    userType === "admin"
+      ? adminItems
+      : userType === "teacher"
+      ? teacherItems
+      : studentItems;
 
   const isActive = (path: string) => currentPath === path;
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
-    isActive ? "bg-primary text-primary-foreground font-medium" : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground";
+    isActive
+      ? "bg-primary font-medium"
+      : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground";
 
   const getUserTitle = () => {
     switch (userType) {
-      case 'admin': return 'Administrador';
-      case 'teacher': return 'Professor';
-      case 'student': return 'Aluno';
+      case "admin":
+        return "Administrador";
+      case "teacher":
+        return "Professor";
+      case "student":
+        return "Aluno";
     }
   };
 
   const getUserInitials = () => {
     switch (userType) {
-      case 'admin': return 'AD';
-      case 'teacher': return 'PR';
-      case 'student': return 'AL';
+      case "admin":
+        return "AD";
+      case "teacher":
+        return "PR";
+      case "student":
+        return "AL";
     }
   };
 
   return (
-    <Sidebar
-      className={collapsed ? "w-14" : "w-60"}
-      collapsible="icon"
-    >
+    <Sidebar className={collapsed ? "w-14" : "w-60"} collapsible="icon">
       <SidebarHeader>
         <div className="flex items-center gap-3 px-3 py-2">
           <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-md flex items-center justify-center">
@@ -98,7 +105,9 @@ export function AppSidebar({ userType, onLogout }: AppSidebarProps) {
           {!collapsed && (
             <div>
               <p className="font-semibold text-sm">Calendrify Pro</p>
-              <p className="text-xs text-muted-foreground">Sistema de Agendamento</p>
+              <p className="text-xs text-muted-foreground">
+                Sistema de Agendamento
+              </p>
             </div>
           )}
         </div>
@@ -128,19 +137,23 @@ export function AppSidebar({ userType, onLogout }: AppSidebarProps) {
         <div className="p-3 space-y-3">
           <div className="flex items-center gap-3">
             <Avatar className="w-8 h-8">
-              <AvatarFallback className="text-xs">{getUserInitials()}</AvatarFallback>
+              <AvatarFallback className="text-xs">
+                {getUserInitials()}
+              </AvatarFallback>
             </Avatar>
             {!collapsed && (
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">João Silva</p>
-                <p className="text-xs text-muted-foreground">{getUserTitle()}</p>
+                <p className="text-xs text-muted-foreground">
+                  {getUserTitle()}
+                </p>
               </div>
             )}
           </div>
           {!collapsed && (
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={onLogout}
               className="w-full justify-start text-muted-foreground hover:text-foreground"
             >
