@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Calendar, Building, Chrome, Square } from "lucide-react";
+import { Calendar, Building, Chrome, Monitor } from "lucide-react";
 
 interface LoginPageProps {
   onLogin: (userType: 'admin' | 'teacher' | 'student') => void;
@@ -115,18 +115,16 @@ export const LoginPage = ({ onLogin }: LoginPageProps) => {
 
               <div className="space-y-3 mt-6">
                 <Button 
-                  variant="outline" 
-                  className="w-full bg-white border-gray-300 text-gray-700 hover:bg-gray-50 py-3 rounded-lg transition-colors flex items-center justify-center gap-3 shadow-sm"
+                  className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg transition-colors flex items-center justify-center gap-3 border-0"
                 >
-                  <Chrome className="w-5 h-5 text-red-500" />
+                  <Chrome className="w-5 h-5 text-white" />
                   Entrar com Google
                 </Button>
                 
                 <Button 
-                  variant="outline" 
-                  className="w-full bg-white border-gray-300 text-gray-700 hover:bg-gray-50 py-3 rounded-lg transition-colors flex items-center justify-center gap-3 shadow-sm"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition-colors flex items-center justify-center gap-3 border-0"
                 >
-                  <Square className="w-5 h-5 text-blue-600" />
+                  <Monitor className="w-5 h-5 text-white" />
                   Entrar com Microsoft
                 </Button>
               </div>
